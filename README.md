@@ -1,2 +1,4 @@
-# Ising_model
+# Cell automata
+
+## Ising_model
 Simple Ising model program.
