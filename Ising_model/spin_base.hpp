@@ -1,21 +1,30 @@
-#ifndef CELL-AUTOMATA-ISING-SPIN-BASE
-#define CELL-AUTOMATA-ISING-SPIN-BASE
+#ifndef CELL_AUTOMATA_ISING_SPIN_BASE
+#define CELL_AUTOMATA_ISING_SPIN_BASE
 
-template<typename value_T>
-class spin_base
-{
-    using state_type		= value_T;
+#include <array>
+
+template<typename value_T, std::size_t partner_Num>
+class Spin_base
+{    
   public:
-    spin_base(state_type s):state(s){}
+    using state_type		= value_T;
+    using base_pointer		= Spin_base*;
+    using const_base_pointer    = const Spin_base*;
+    using partners_list_type	= std::array<const_base_pointer, partner_Num>;
+    
+    Spin_base(state_type s):state(s){}
 
+    virtual void step() = 0;
+    virtual void set_partners(const partners_list_type&) = 0;
+    
     state_type get() const
     { return state; }
     void set(state_type s)
     { state = s; return; }
-    virtual void step() = 0;
     
-  private:
+  protected:
     state_type state;
-}
+    partners_list_type partners;
+};
 
-#endif /* CELL-AUTOMATA-ISING-SPIN */
+#endif /* CELL_AUTOMATA_ISING_SPIN */
