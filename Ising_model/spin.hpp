@@ -71,7 +71,7 @@ class Neuman_flip_spin : public Spin_base<int, 4>
 	return -current_energy();
     }
 
-    void initialize()
+    virtual void reset_state() override
     {
 	state = 2 * dist_i01(random_engine) - 1;
     }
