@@ -12,6 +12,7 @@ class Spin_base
     using const_base_pointer    = const Spin_base*;
     using partners_list_type	= std::array<const_base_pointer, partner_Num>;
     
+    Spin_base(){}
     Spin_base(state_type s):state(s){}
 
     virtual void step() = 0;
