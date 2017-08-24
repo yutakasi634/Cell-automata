@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_step)
     BOOST_CHECK_SMALL( mean_state - theoretical_value, depend_step_tolerance);
 }
 
-BOOST_AUTO_TEST_CASE(Neuman_flip_spin_initialize)
+BOOST_AUTO_TEST_CASE(Neuman_flip_spin_reset_state)
 {
     Neuman_f_spin test_spin(1, tempreture, magnetic_flux_density,
 			       spin_interaction, random_generator);
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_initialize)
     numerical_type mean_state = test_spin.get();
     for(std::size_t step = 0; step < total_step; ++step)
     {
-	test_spin.initialize();
+	test_spin.reset_state();
 	mean_state += test_spin.get(); 
     }
     mean_state /= total_step;
