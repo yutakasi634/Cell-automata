@@ -16,6 +16,7 @@ class Spin_base
 
     virtual void step() = 0;
     virtual void set_partners(const partners_list_type&) = 0;
+    virtual void reset_state() = 0;
     
     state_type get() const
     { return state; }
