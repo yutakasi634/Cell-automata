@@ -9,14 +9,47 @@ class Ising_system
 {
     using random_engine_type	= simulator_T::random_engine_type;
     using numerical_type	= simulator_T::numerical_type;
-    using array_matrix		= Utilpack::array_matrix<spin_T, row_Num, column_Num>;
+    using initializer_type      = System_initializer<spin_T>;
+    using array_matrix		=
+	Utilpack::array_matrix<spin_T*, row_Num, column_Num>;
     
   public:
-    Ising_system(random_engine_type& ran_e):random_engine(ran_e){};
+    Ising_system(random_engine_type& ran_e):random_engine(ran_e)
+    {
+	typename
+	uniform_real_distribution<std::size_t>::param_type
+	    param(0, array_matrix.size() - 1);
+	dist_size.param(param);
+	
+	initialize();
+    }
 
+    void initialize()
+    {
+	System_initializer.initialize(system, tempreture, magnetic_flux_density,
+				 spin_interaction);
+	return;
+    }
+    
+    void reset_states()
+    {
+	for(spin_T spin : system)
+	    spin.reset_state();
+	return;
+    }
+    
+    void step()
+    {
+	array_matrix.at(dist_size(random_engine)).step();
+	return;
+    }
+    
   private:
     array_matrix system;
+    numerical_type tempreture, magnetic_flux_density, spin_interaction;
     random_engine_type& random_engine;
+    std::uniform_int_distribution<std::size_t> dist_size;
+    initializer_type initializer;
 };
 
 #endif /* CELL_AUTOMATA_ISING_SYSTEM */
