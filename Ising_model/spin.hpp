@@ -14,6 +14,13 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     using random_engine_type	= random_engine_T;
     
   public:
+    Neuman_flip_spin(numerical_type& temp, numerical_type& perm,
+		     numerical_type& spin_inter, random_engine_type& ran)
+    {
+	Neuman_flip_spin(1, temp, perm, spin_inter, ran);
+	reset_state();
+    }
+	
     Neuman_flip_spin(state_type s, numerical_type& temp, numerical_type& perm,
 		     numerical_type& spin_inter, random_engine_type& ran):
 	Spin_base<int, 4>(s), tempreture(temp), magnetic_flux_density(perm),
