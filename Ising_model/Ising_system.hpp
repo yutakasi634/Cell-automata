@@ -3,6 +3,7 @@
 
 #include "../utilpack/array_matrix.hpp"
 #include "spin.hpp"
+#include "system_initializer.hpp"
 
 template<typename spin_T, std::size_t row_Num, std::size_t column_Num, typename simulator_T>
 class Ising_system
@@ -26,7 +27,7 @@ class Ising_system
 
     void initialize()
     {
-	System_initializer.initialize(system, tempreture, magnetic_flux_density,
+	initializer.initialize(system, tempreture, magnetic_flux_density,
 				 spin_interaction);
 	return;
     }
