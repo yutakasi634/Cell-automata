@@ -3,14 +3,13 @@
 
 #include "../utilpack/array_matrix.hpp"
 #include "spin.hpp"
-#include "system_initializer.hpp"
+#include "system_initializer_func.hpp"
 
 template<typename spin_T, std::size_t row_Num, std::size_t column_Num, typename simulator_T>
 class Ising_system
 {
     using random_engine_type	= simulator_T::random_engine_type;
     using numerical_type	= simulator_T::numerical_type;
-    using initializer_type      = System_initializer<spin_T>;
     using array_matrix		=
 	Utilpack::array_matrix<spin_T*, row_Num, column_Num>;
     
@@ -27,8 +26,8 @@ class Ising_system
 
     void initialize()
     {
-	initializer.initialize(system, tempreture, magnetic_flux_density,
-				 spin_interaction);
+	system_initialize<spin_T, row_Num, column_Num, simulator_T>
+	    (system, tempreture, magnetic_flux_density, spin_interaction);
 	return;
     }
     
@@ -50,7 +49,6 @@ class Ising_system
     numerical_type tempreture, magnetic_flux_density, spin_interaction;
     random_engine_type& random_engine;
     std::uniform_int_distribution<std::size_t> dist_size;
-    initializer_type initializer;
 };
 
 #endif /* CELL_AUTOMATA_ISING_SYSTEM */
