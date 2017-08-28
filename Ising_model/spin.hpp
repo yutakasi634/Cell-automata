@@ -6,25 +6,33 @@
 #include <stdexcept>
 #include <cmath>
 #include "spin_base.hpp"
+#include "spin_params.hpp"
 
-template<typename numerical_T, typename random_engine_T>
+template<typename simulator_T>
 class Neuman_flip_spin : public Spin_base<int, 4>
-{
-    using numerical_type	= numerical_T;
-    using random_engine_type	= random_engine_T;
-    
+{    
   public:
-    Neuman_flip_spin(numerical_type& temp, numerical_type& perm,
-		     numerical_type& spin_inter, random_engine_type& ran)
+    
+    using numerical_type	= typename simulator_T::numerical_type;
+    using random_engine_type	= typename simulator_T::random_engine_type;
+    
+    Neuman_flip_spin(
+	spin_params<Neuman_flip_spin<simulator_T>, simulator_T>& params,
+	random_engine_type& rand_e)
     {
-	Neuman_flip_spin(1, temp, perm, spin_inter, ran);
+	Neuman_flip_spin(1, params, rand_e);
 	reset_state();
     }
 	
-    Neuman_flip_spin(state_type s, numerical_type& temp, numerical_type& perm,
-		     numerical_type& spin_inter, random_engine_type& ran):
-	Spin_base<int, 4>(s), tempreture(temp), magnetic_flux_density(perm),
-	spin_interaction(spin_inter), random_engine(ran)
+    Neuman_flip_spin(
+	int s,
+	spin_params<Neuman_flip_spin<simulator_T>, simulator_T>& params,
+	random_engine_type& ran):
+	Spin_base<int, 4>(s),
+	tempreture(params.tempreture),
+	magnetic_flux_density(params.magnetic_flux_density),
+	spin_interaction(params.spin_interaction),
+	random_engine(ran)
     {
 	if(s != 1 && s != -1)
 	    throw std::invalid_argument("Neuman flip spin state have to be 1 or -1.");
