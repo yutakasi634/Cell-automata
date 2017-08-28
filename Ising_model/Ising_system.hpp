@@ -3,6 +3,7 @@
 
 #include "../utilpack/array_matrix.hpp"
 #include "spin.hpp"
+#include "spin_params.hpp" 
 #include "system_initializer_func.hpp"
 
 template<template<typename> typename spin_T,
