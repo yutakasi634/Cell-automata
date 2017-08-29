@@ -13,8 +13,7 @@ using system_type			= Utilpack::array_matrix<spin_type, 3, 3>;
 using random_engine_type		= spin_type::random_engine_type;
 using random_engine_pointer_type	= random_engine_type*;
 using numerical_type			= spin_type::numerical_type;
-using spin_params_type			=
-    Spin_params<spin_type, spin_type::simulator_traits>;
+using spin_params_type			= Spin_params<spin_type>;
 
 numerical_type tempreture(1), magnetic_flux_density(1), spin_interaction(1);
 spin_params_type spin_params(tempreture, magnetic_flux_density, spin_interaction);
