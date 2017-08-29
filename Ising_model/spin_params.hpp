@@ -1,7 +1,7 @@
 #ifndef CELL_AUTOMATA_ISING_SPIN_PARAMS
 #define CELL_AUTOMATA_ISING_SPIN_PARAMS
 
-template<typename spin_T, typename simulator_T>
+template<typename spin_T, typename simulator_T = typename spin_T::simulator_traits>
 struct Spin_params;
 
 template<typename simulator_T>
