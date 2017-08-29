@@ -16,7 +16,7 @@ using random_engine_type		= Neuman_f_spin::random_engine_type;
 using random_engine_pointer_type	= random_engine_type*;
 using base_pointer			= Neuman_f_spin::base_pointer;
 using const_base_pointer		= Neuman_f_spin::const_base_pointer;
-using spin_params_type			= Spin_params<Neuman_f_spin, simulator_traits>;
+using spin_params_type			= Spin_params<Neuman_f_spin>;
 
 numerical_type tolerance = 1e-5;//tolerance for BOOST_CHECK_CLOSE_FRACTION.
 
