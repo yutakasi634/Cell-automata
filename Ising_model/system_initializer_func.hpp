@@ -50,7 +50,7 @@ void set_spin_partner(Utilpack::array_matrix<spin_T, row_Num, column_Num>& syste
 
 template<typename spin_T, std::size_t row_Num, std::size_t column_Num>
 void set_spin(Utilpack::array_matrix<spin_T, row_Num, column_Num>& system,
-	      const Spin_params<spin_T, typename spin_T::simulator_traits>& params,
+	      const Spin_params<spin_T>& params,
 	      const typename spin_T::random_engine_pointer_type random_engine_ptr)
 {
     for(spin_T spin : system)
@@ -61,7 +61,7 @@ void set_spin(Utilpack::array_matrix<spin_T, row_Num, column_Num>& system,
 template<typename spin_T, std::size_t row_Num, std::size_t column_Num>
 void system_initialize(
     Utilpack::array_matrix<spin_T, row_Num, column_Num>& system,
-    const Spin_params<spin_T, typename spin_T::simulator_traits>& params,
+    const Spin_params<spin_T>& params,
     const typename spin_T::random_engine_pointer_type random_engine_ptr)
 {
     set_spin<spin_T, row_Num, column_Num>(system, params, random_engine_ptr);
