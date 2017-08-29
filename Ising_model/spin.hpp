@@ -21,7 +21,7 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     Neuman_flip_spin(){};
     
     Neuman_flip_spin(
-	const Spin_params<Neuman_flip_spin<simulator_T>, simulator_T>& params,
+	const Spin_params<Neuman_flip_spin<simulator_T> >& params,
 	const random_engine_pointer_type rand_engine_ptr):
 	Spin_base<int, 4>(1),
 	tempreture(params.tempreture),
@@ -35,7 +35,7 @@ class Neuman_flip_spin : public Spin_base<int, 4>
 	
     Neuman_flip_spin(
 	const int s,
-	const Spin_params<Neuman_flip_spin<simulator_T>, simulator_T>& params,
+	const Spin_params<Neuman_flip_spin<simulator_T> >& params,
 	const random_engine_pointer_type random_engine_ptr):
 	Spin_base<int, 4>(s),
 	tempreture(params.tempreture),
