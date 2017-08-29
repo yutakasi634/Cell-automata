@@ -10,14 +10,15 @@ template<template<typename> typename spin_T,
 	 std::size_t row_Num, std::size_t column_Num, typename simulator_T>
 class Ising_system
 {
-    using random_engine_type	= simulator_T::random_engine_type;
-    using numerical_type	= simulator_T::numerical_type;
-    using spin_type             = spin_T<simulator_T>;
-    using array_matrix		=
-	Utilpack::array_matrix<spin_type*, row_Num, column_Num>;
+    using random_engine_type		= simulator_T::random_engine_type;
+    using random_engine_pointer_type	= random_engine_type*;
+    using numerical_type		= simulator_T::numerical_type;
+    using spin_type			= spin_T<simulator_T>;
+    using array_matrix			=
+	Utilpack::array_matrix<spin_type, row_Num, column_Num>;
     
   public:
-    Ising_system(spin_params<spin_type> s_params,
+    Ising_system(spin_params<spin_type, simulator_T> s_params,
 		 random_engine_type& ran_e):
 	spin_params(s_params), random_engine(ran_e)
     {
@@ -32,7 +33,7 @@ class Ising_system
     void initialize()
     {
 	system_initialize<spin_type, row_Num, column_Num>
-	    (system, spin_params);
+	    (system, spin_params, random_engine_pointer);
 	return;
     }
     
@@ -52,7 +53,7 @@ class Ising_system
   private:
     array_matrix system;
     spin_params<spin_type> spin_params;
-    random_engine_type& random_engine;
+    random_engine_pointer_type random_engine_pointer;
     std::uniform_int_distribution<std::size_t> dist_size;
 };
 
