@@ -7,12 +7,12 @@
 #include "Ising_system.hpp"
 
 using simulator_traits		= Default_simulator_traits;
-template<typename simulator_T>
-using spin_template		= Neuman_flip_spin<simulator_T>;
-using Ising_system_type		= Ising_system<spin_template, 3, 3, simulator_traits>;
+using spin_type			= Neuman_flip_spin<simulator_traits>;
+
+using Ising_system_type		= Ising_system<spin_type, 3, 3>;
 using numerical_type		= typename Default_simulator_traits::numerical_type;
 using random_engine_type	= typename Default_simulator_traits::random_engine_type;
-using spin_params_type		= Spin_params<spin_template<simulator_traits> >;
+using spin_params_type		= Spin_params<spin_type>;
 
 numerical_type tempreture(1), magnetic_flux_density(1), spin_interaction(1);
 spin_params_type spin_params(tempreture, magnetic_flux_density, spin_interaction);
