@@ -24,8 +24,8 @@ class Ising_simulator
     Ising_simulator(int seed, Params&&... params):
 	spin_params{std::forward<Params>(params) ...},random_engine(seed)
     {
-//	ising_system.initialize(spin_params, random_engine);
-//	ising_system.reset_states();
+	ising_system.initialize(spin_params, random_engine);
+	ising_system.reset_states();
     }
 
     void step()
