@@ -22,3 +22,23 @@ BOOST_AUTO_TEST_CASE(constructor_check_for_neuman_case)
 {
     Ising_system_type test_system(spin_params, random_engine);
 }
+
+BOOST_AUTO_TEST_CASE(initialize_for_neuman_case)
+{
+    Ising_system_type test_system(spin_params, random_engine);
+    test_system.initialize();
+}
+
+BOOST_AUTO_TEST_CASE(reset_state_for_neuman_case)
+{
+    Ising_system_type test_system(spin_params, random_engine);
+    test_system.initialize();
+    test_system.reset_states();
+}
+
+BOOST_AUTO_TEST_CASE(step_for_neuman_case)
+{
+    Ising_system_type test_system(spin_params, random_engine);
+    test_system.initialize();
+    test_system.step();
+}
