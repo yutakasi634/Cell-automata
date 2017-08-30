@@ -100,7 +100,7 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     numerical_type current_energy() const
     {
 	numerical_type energy(0);
-	for(auto elem_p : partners)
+	for(auto& elem_p : partners)
 	    energy += elem_p->get();
 	energy = (-spin_interaction * energy - magnetic_flux_density) * state;
 	return energy;
