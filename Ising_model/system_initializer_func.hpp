@@ -52,21 +52,21 @@ void set_spin_partner(Utilpack::array_matrix<spin_T, R, C>& system)
 
 template<typename spin_T, std::size_t R, std::size_t C>
 void set_spin(Utilpack::array_matrix<spin_T, R, C>& system,
-	      const Spin_params<spin_T>& params,
+	      const typename spin_T::spin_params_pointer params_ptr,
 	      const typename spin_T::random_engine_pointer_type random_engine_ptr)
 {
     for(spin_T& spin : system)
-	spin = spin_T(params, random_engine_ptr);
+	spin = spin_T(params_ptr, random_engine_ptr);
     return;
 }
 
 template<typename spin_T, std::size_t R, std::size_t C>
 void system_initialize(
     Utilpack::array_matrix<spin_T, R, C>& system,
-    const Spin_params<spin_T>& params,
+    const typename spin_T::spin_params_pointer params_ptr,
     const typename spin_T::random_engine_pointer_type random_engine_ptr)
 {
-    set_spin<spin_T, R, C>(system, params, random_engine_ptr);
+    set_spin<spin_T, R, C>(system, params_ptr, random_engine_ptr);
     set_spin_partner<spin_T, R, C>(system);
     return;
 }
