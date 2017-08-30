@@ -39,7 +39,7 @@ class Ising_system
     
     void reset_states()
     {
-	for(spin_type spin : system)
+	for(spin_type& spin : system)
 	    spin.reset_state();
 	return;
     }
