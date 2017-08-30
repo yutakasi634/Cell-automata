@@ -17,6 +17,7 @@ using random_engine_pointer_type	= random_engine_type*;
 using base_pointer			= Neuman_f_spin::base_pointer;
 using const_base_pointer		= Neuman_f_spin::const_base_pointer;
 using spin_params_type			= Spin_params<Neuman_f_spin>;
+using spin_params_pointer               = spin_params_type*;
 
 numerical_type tolerance = 1e-5;//tolerance for BOOST_CHECK_CLOSE_FRACTION.
 
@@ -24,9 +25,10 @@ random_engine_type random_generator(53);
 random_engine_pointer_type random_engine_ptr = &random_generator;
 numerical_type tempreture(1), magnetic_flux_density(1), spin_interaction(1);
 spin_params_type params(tempreture, magnetic_flux_density, spin_interaction);
+spin_params_pointer params_ptr(&params);
 
-const Neuman_f_spin up_spin(1, params, random_engine_ptr), 
-    down_spin(-1, params, random_engine_ptr);
+const Neuman_f_spin up_spin(1, params_ptr, random_engine_ptr), 
+    down_spin(-1, params_ptr, random_engine_ptr);
 const_base_pointer up_spin_p = &up_spin, down_spin_p = &down_spin;
 
 
@@ -36,12 +38,12 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_constructor)
     
     BOOST_CHECK_THROW(
 	Neuman_f_spin error_spin(
-	    2, params, random_engine_ptr), std::invalid_argument );    
+	    2, params_ptr, random_engine_ptr), std::invalid_argument );    
 }
 
 BOOST_AUTO_TEST_CASE(Neuman_flip_spin_current_energy)
 {
-    Neuman_f_spin test_spin(1, params, random_engine_ptr);
+    Neuman_f_spin test_spin(1, params_ptr, random_engine_ptr);
     
     std::array<const_base_pointer, 4> neighbours =
 	{up_spin_p, up_spin_p, up_spin_p, down_spin_p};    
@@ -51,7 +53,7 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_current_energy)
 
 BOOST_AUTO_TEST_CASE(Neuman_flip_spin_after_flip_energy)
 {
-    Neuman_f_spin test_spin(1, params, random_engine_ptr);
+    Neuman_f_spin test_spin(1, params_ptr, random_engine_ptr);
     
     std::array<const_base_pointer, 4> neighbours =
 	{up_spin_p, up_spin_p, up_spin_p, down_spin_p};    
@@ -61,7 +63,7 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_after_flip_energy)
 
 BOOST_AUTO_TEST_CASE(Neuman_flip_spin_step)
 {
-    Neuman_f_spin test_spin(1, params, random_engine_ptr);
+    Neuman_f_spin test_spin(1, params_ptr, random_engine_ptr);
     
     std::array<const_base_pointer, 4> neighbours =
 	{up_spin_p, up_spin_p, down_spin_p, down_spin_p};    
@@ -86,7 +88,7 @@ BOOST_AUTO_TEST_CASE(Neuman_flip_spin_step)
 
 BOOST_AUTO_TEST_CASE(Neuman_flip_spin_reset_state)
 {
-    Neuman_f_spin test_spin(1, params, random_engine_ptr);
+    Neuman_f_spin test_spin(1, params_ptr, random_engine_ptr);
     
     std::size_t total_step = 10000;
     numerical_type mean_state = test_spin.get();
