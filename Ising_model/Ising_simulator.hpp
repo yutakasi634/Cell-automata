@@ -13,28 +13,19 @@ class Ising_simulator
 {
     using spin_type		= spin_T<simulator_T>;
     using spin_params_type	= Spin_params<spin_type>;
-    using system_type		= Ising_system<spin_type>;
-    using numerical_type	= simulator_T::random_engine_type;
-    using random_engine_type	= simulator_T::random_engine_type;
-    using array_matrix		= system_type::array_matrix;
+    using system_type		= Ising_system<spin_type, row_Num, column_Num>;
+    using numerical_type	= typename simulator_T::numerical_type;
+    using random_engine_type	= typename simulator_T::random_engine_type;
+    using array_matrix		=
+	typename Utilpack::array_matrix<spin_type, row_Num, column_Num>;
     
   public:
-    Ising_simulator(int seed):random_engine(seed){};
-
-    void set_neuman_spin_system(
-	numerical_type tempreture ,numerical_type magnetic_flux_density,
-	numerical_type spin_interaction)
+    template<typename ...Params>
+    Ising_simulator(int seed, Params&&... params):
+	spin_params{std::forward<Params>(params) ...},random_engine(seed)
     {
-	spin_params =
-	    Spin_params<spin_type>(tempreture, magnetic_flux_density, spin_interaction);
-	return;
-    }
-    
-    void set_ising_system()
-    {
-	ising_system =
-	    Ising_system<spin_type, row_Num, column_Num>(spin_params, random_engine);
-	return;
+//	ising_system.initialize(spin_params, random_engine);
+//	ising_system.reset_states();
     }
 
     void step()
@@ -49,16 +40,16 @@ class Ising_simulator
 	return;
     }
 
-    array_matrix& spins_state() const
+    const array_matrix& spins_state() const
     {
 	return ising_system.spins_state();
     }
     
   private:
     spin_params_type spin_params;
-    system_type ising_system;
     random_engine_type random_engine;
+    system_type ising_system;
 };
-    
+
 
 #endif /* CELL_AUTOMATA_ISING_SYSTEM */
