@@ -15,33 +15,31 @@ class Neuman_flip_spin : public Spin_base<int, 4>
 
     using simulator_traits		= simulator_T;
     using numerical_type		= typename simulator_traits::numerical_type;
+    using spin_params_type              = Spin_params<Neuman_flip_spin<simulator_T> >;
+    using spin_params_pointer           = spin_params_type*;
     using random_engine_type		= typename simulator_traits::random_engine_type;
     using random_engine_pointer_type	= random_engine_type*;
 
-    Neuman_flip_spin():random_engine_pointer(nullptr){};
+    Neuman_flip_spin():
+	spin_params_ptr(nullptr),random_engine_ptr(nullptr){};
     
     Neuman_flip_spin(
-	const Spin_params<Neuman_flip_spin<simulator_T> >& params,
-	const random_engine_pointer_type rand_engine_ptr):
-	Spin_base<int, 4>(1),
-	tempreture(params.tempreture),
-	magnetic_flux_density(params.magnetic_flux_density),
-	spin_interaction(params.spin_interaction),
-	random_engine_pointer(rand_engine_ptr)
+	const spin_params_pointer params_ptr,
+	const random_engine_pointer_type rand_en_ptr):
+	Spin_base<int, 4>(0),
+	spin_params_ptr(params_ptr),
+	random_engine_ptr(rand_en_ptr)
     {
 	generate_distribution();
-	reset_state();
     }
-	
+    
     Neuman_flip_spin(
 	const int s,
-	const Spin_params<Neuman_flip_spin<simulator_T> >& params,
+	const spin_params_pointer params_ptr,
 	const random_engine_pointer_type random_engine_ptr):
 	Spin_base<int, 4>(s),
-	tempreture(params.tempreture),
-	magnetic_flux_density(params.magnetic_flux_density),
-	spin_interaction(params.spin_interaction),
-	random_engine_pointer(random_engine_ptr)
+	spin_params_ptr(params_ptr),
+	random_engine_ptr(random_engine_ptr)
     {	
 	check_state();
 	generate_distribution();
@@ -79,13 +77,14 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     
     virtual void step() override
     {
+	numerical_type tempreture = (*spin_params_ptr).tempreture;
 	numerical_type energy_diff = after_flip_energy() - current_energy();
 	if(energy_diff <= 0)
 	    flip();
 	else
 	{
 	    numerical_type flip_prob = std::exp(-tempreture * energy_diff);
-	    if(dist_r01(*random_engine_pointer) <= flip_prob)
+	    if(dist_r01(*random_engine_ptr) <= flip_prob)
 		flip();
 	}
 	return;
@@ -99,6 +98,8 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     
     numerical_type current_energy() const
     {
+	numerical_type spin_interaction = (*spin_params_ptr).spin_interaction;
+	numerical_type magnetic_flux_density = (*spin_params_ptr).magnetic_flux_density;
 	numerical_type energy(0);
 	for(auto& elem_p : partners)
 	    energy += elem_p->get();
@@ -113,14 +114,16 @@ class Neuman_flip_spin : public Spin_base<int, 4>
 
     virtual void reset_state() override
     {
-	state = 2 * dist_i01(*random_engine_pointer) - 1;
+	state = dist_i01(*random_engine_ptr);
+	state = 2 * state - 1;
     }
 
     
     
   private:
-    numerical_type tempreture, magnetic_flux_density, spin_interaction;
-    random_engine_pointer_type random_engine_pointer;
+    
+    spin_params_pointer spin_params_ptr;
+    random_engine_pointer_type random_engine_ptr;
     std::uniform_real_distribution<numerical_type> dist_r01;
     std::uniform_int_distribution<> dist_i01;
 };
