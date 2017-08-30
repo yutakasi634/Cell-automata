@@ -14,35 +14,38 @@ using random_engine_type		= spin_type::random_engine_type;
 using random_engine_pointer_type	= random_engine_type*;
 using numerical_type			= spin_type::numerical_type;
 using spin_params_type			= Spin_params<spin_type>;
+using spin_params_pointer		= spin_params_type*;
+
 
 numerical_type tempreture(1), magnetic_flux_density(1), spin_interaction(1);
 spin_params_type spin_params(tempreture, magnetic_flux_density, spin_interaction);
+spin_params_pointer spin_params_ptr(&spin_params);
 random_engine_type random_engine(53);
 random_engine_pointer_type random_engine_ptr = &random_engine;
 system_type test_system;
 
 BOOST_AUTO_TEST_CASE(set_spin_for_Neuman_flip_spin)
 {
-    set_spin<spin_type, 3, 3>(test_system, spin_params, random_engine_ptr);
+    set_spin<spin_type, 3, 3>(test_system, spin_params_ptr, random_engine_ptr);
 }
 
 BOOST_AUTO_TEST_CASE(set_row_partner_for_Neuman_flip_spin)
 {
-    set_spin<spin_type, 3, 3>(test_system, spin_params, random_engine_ptr);
+    set_spin<spin_type, 3, 3>(test_system, spin_params_ptr, random_engine_ptr);
     for(std::size_t row = 0; row < 3; ++row)
 	set_row_spin_partner<3, 3, spin_type::simulator_traits>(test_system, row);
 }
 
 BOOST_AUTO_TEST_CASE(set_spin_partner_for_Neuman_flip_spin)
 {
-    set_spin<spin_type, 3, 3>(test_system, spin_params, random_engine_ptr);
+    set_spin<spin_type, 3, 3>(test_system, spin_params_ptr, random_engine_ptr);
     set_spin_partner<spin_type, 3, 3>(test_system);
 }
 
 
 BOOST_AUTO_TEST_CASE(system_initialize_for_Neuman_flip_spin)
 {
-    system_initialize<spin_type, 3, 3>(test_system, spin_params, random_engine_ptr);
+    system_initialize<spin_type, 3, 3>(test_system, spin_params_ptr, random_engine_ptr);
 
     std::array<spin_type::const_base_pointer, 4>
 	correct_partner{ &test_system.at(0,1), &test_system.at(1,2),
