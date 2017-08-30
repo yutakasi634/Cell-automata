@@ -18,7 +18,7 @@ class Neuman_flip_spin : public Spin_base<int, 4>
     using random_engine_type		= typename simulator_traits::random_engine_type;
     using random_engine_pointer_type	= random_engine_type*;
 
-    Neuman_flip_spin(){};
+    Neuman_flip_spin():random_engine_pointer(nullptr){};
     
     Neuman_flip_spin(
 	const Spin_params<Neuman_flip_spin<simulator_T> >& params,
