@@ -1,4 +1,7 @@
 *~
 #*#
-a.out
+Ising_model
+test/*
+!/test/*.hpp
+!/test/*.cpp
 *.gch
