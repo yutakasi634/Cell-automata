@@ -11,6 +11,7 @@ template<template<typename>class spin_T,
 	 std::size_t row_Num, std::size_t column_Num, typename simulator_T>
 class Ising_simulator
 {
+  public:
     using spin_type		= spin_T<simulator_T>;
     using spin_params_type	= Spin_params<spin_type>;
     using system_type		= Ising_system<spin_type, row_Num, column_Num>;
