@@ -5,9 +5,9 @@
 #include <iostream>
 #include <array>
 #include <cmath>
-#include "Ising_simulator_traits.hpp"
-#include "spin.hpp"
-#include "spin_params.hpp"
+#include "../Ising_simulator_traits.hpp"
+#include "../spin.hpp"
+#include "../spin_params.hpp"
 
 using simulator_traits			= Default_simulator_traits;
 using Neuman_f_spin			= Neuman_flip_spin<simulator_traits>;

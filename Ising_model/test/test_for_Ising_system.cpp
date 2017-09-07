@@ -2,9 +2,9 @@
 
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
-#include "../utilpack/array_matrix.hpp"
-#include "Ising_simulator_traits.hpp"
-#include "Ising_system.hpp"
+#include "../../utilpack/array_matrix.hpp"
+#include "../Ising_simulator_traits.hpp"
+#include "../Ising_system.hpp"
 
 using simulator_traits		= Default_simulator_traits;
 using spin_type			= Neuman_flip_spin<simulator_traits>;
