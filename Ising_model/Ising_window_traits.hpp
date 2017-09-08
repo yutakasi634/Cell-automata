@@ -6,8 +6,7 @@
 struct Ising_window_traits
 {
     constexpr static const char* window_name = "ising_model";
-    constexpr static int window_x_size = 1000;
-    constexpr static int window_y_size = 1000;
+    constexpr static int window_side = 1000;
     constexpr static double margin = 0.1;
 };
     
