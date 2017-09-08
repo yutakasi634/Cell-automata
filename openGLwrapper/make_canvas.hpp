@@ -16,7 +16,7 @@ void setWindow(int& argc, char** argv)
 
 void setBackground()
 {
-    glutInitDisplayMode(GLUT_RGBA);	
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);	
     glClearColor(1.0, 1.0, 1.0, 1.0);
     return;
 }
