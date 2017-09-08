@@ -3,7 +3,7 @@
 #include "Ising_simulator.hpp"
 #include "spin.hpp"
 #include "Ising_simulator_traits.hpp"
-#include "drawer/Ising_window_traits.hpp"
+#include "Ising_window_traits.hpp"
 #include "../openGLwrapper/make_canvas.hpp"
 #include "../openGLwrapper/drawquads.hpp"
 
