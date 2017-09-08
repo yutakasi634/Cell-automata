@@ -1,11 +1,23 @@
-#ifndef CELL_AUTOMATA_OPENGLWRAPPER_DRAWQUADS
-#define CELL_AUTOMATA_OPENGLWRAPPER_DRAWQUADS
+#ifndef CELL_AUTOMATA_OPENGLWRAPPER_DRAWFIGURE
+#define CELL_AUTOMATA_OPENGLWRAPPER_DRAWFIGURE
 
 #include <GL/glut.h>
 
+void drawpoint(float x_coordinate, float y_coordinate,
+	       float size = 1.0,
+	       float rgbr = 0, float rgbg = 0, float rgbb = 0)
+{
+    glColor3f(rgbr, rgbg, rgbb);
+    glPointSize(size);
+    glBegin(GL_POINTS);
+    glVertex2f(x_coordinate, y_coordinate);
+    glEnd();
+    return;
+}
+
 void drawquads(double x_coordinate, double y_coordinate,
 	       double x_side, double y_side,
-	       double rgbr = 0, double rgbg = 0, double rgbb = 0)
+	       float rgbr = 0, float rgbg = 0, float rgbb = 0)
 {
     double half_x_side = x_side * 0.5;
     double half_y_side = y_side * 0.5;
@@ -20,4 +32,4 @@ void drawquads(double x_coordinate, double y_coordinate,
     return;
 }
 
-#endif /*  CELL_AUTOMATA_OPENGLWRAPPER_DRAWQUADS */
+#endif /*  CELL_AUTOMATA_OPENGLWRAPPER_DRAWFIGURE */
