@@ -8,15 +8,15 @@ template<typename window_traits>
 void setWindow(int& argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutInitWindowSize(window_traits::window_x_size,
-		       window_traits::window_y_size);
+    glutInitWindowSize(window_traits::window_side,
+		       window_traits::window_side);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutCreateWindow(window_traits::window_name);
     return;
 }
 
 void setBackground()
 {
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);	
     glClearColor(1.0, 1.0, 1.0, 1.0);
     return;
 }
