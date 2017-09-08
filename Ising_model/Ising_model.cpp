@@ -14,6 +14,8 @@ using numerical_type = Default_simulator_traits::numerical_type;
 
 constexpr std::size_t system_row_num(250);
 constexpr std::size_t system_column_num(250);
+constexpr std::size_t display_interval(100);
+constexpr std::size_t interval_calculation(10000);
 constexpr int random_seed(53);
 constexpr numerical_type tempreture(1);
 constexpr numerical_type magnetic_flux_density(0.0);
@@ -48,7 +50,7 @@ int main(int argc, char *argv[]){
     Ising_field_ptr = &(Ising_simulator_ptr->spins_state());
     
     set_canvas<Ising_window_traits>(argc ,argv);
-    glutTimerFunc(10, update_canvas, 0);
+    glutTimerFunc(display_interval, update_canvas, 0);
     glutMainLoop();
     
     delete Ising_simulator_ptr;
@@ -72,19 +74,18 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     draw_pixel<window_traits>();
-    glFlush();
+    glutSwapBuffers();
     return;
 }
 
 void update_canvas(int value)
 {
-    std::size_t roop_num = 1000;
     ++step;
-    std::cout << step * roop_num << std::endl;
-    for(std::size_t roop = 0; roop < roop_num; ++roop)
+    std::cout << step * interval_calculation << std::endl;
+    for(std::size_t roop = 0; roop < interval_calculation; ++roop)
 	Ising_simulator_ptr->step();
     glutPostRedisplay();
-    glutTimerFunc(50, update_canvas, 0);
+    glutTimerFunc(display_interval, update_canvas, 0);
     return;
 }
 
@@ -106,9 +107,7 @@ void draw_pixel()
     for(std::size_t row = 0; row < row_n; ++row){
 	for(std::size_t column = 0; column < column_n; ++column){
 	    if(Ising_field_ptr->at(row, column).get() == 1)
-		drawquads(x_coord, y_coord, x_pixel_size, y_pixel_size, 0.0, 0.0, 0.0);
-	    else
-		drawquads(x_coord, y_coord, x_pixel_size, y_pixel_size, 1.0, 1.0, 1.0);
+		drawquads(x_coord, y_coord, x_pixel_size, y_pixel_size);
 	    x_coord += x_pixel_size;
 	}
 	x_coord = initial_x_coord;
@@ -116,7 +115,4 @@ void draw_pixel()
     }
     return;
 }
-
-
-
 
