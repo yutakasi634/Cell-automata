@@ -6,7 +6,7 @@
 #include "Ising_window_traits.hpp"
 #include "Ising_draw_func.hpp"
 #include "Ising_model_parameters.hpp"
-#include "Ising_global_val.hpp"
+#include "Ising_global_variable.hpp"
 
 int main(int argc, char *argv[]){
     Ising_simulator_ptr = new simulator_type
