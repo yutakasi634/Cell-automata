@@ -23,3 +23,9 @@ $ cd build
 $ cmake ..
 $ make
 ```
+### Usage
+If you want to implement Ising model, in Ising_model directry,
+```
+$ ./Ising_model
+```
+If you want to test some function, in test dirctory, implement test file like discribed above.
