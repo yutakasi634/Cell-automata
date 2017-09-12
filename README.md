@@ -11,7 +11,7 @@ This is demo movie which show 1000 * 1000 ising model simulation.
 
 ### Requirement
 
-This code use openGL and GLUT libraly.
+This code use openGL and GLUT libraries.
 
 ### Build
 
